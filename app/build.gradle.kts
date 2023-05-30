@@ -1,5 +1,5 @@
 plugins {
-    `application`
+    application
 
     kotlin("jvm") version "1.8.21"
 }
@@ -13,6 +13,9 @@ dependencies {
 
     // https://github.com/ajalt/mordant
     implementation("com.github.ajalt.mordant:mordant:2.0.0-beta13")
+
+    testImplementation("org.hamcrest:hamcrest:2.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.3")
 }
 
 application {
@@ -25,5 +28,8 @@ tasks {
             freeCompilerArgs = listOf("-Xjsr305=strict")
             jvmTarget = "17"
         }
+    }
+    test {
+        useJUnitPlatform()
     }
 }
