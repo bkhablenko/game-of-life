@@ -35,8 +35,29 @@ jobs:
       - store_test_results:
           path: build/test-results/test
       - save_gradle_cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - app/build/distributions/app.tar
+            - docker-compose.yml
+            - Dockerfile
+
+  docker:
+    docker:
+      - image: cimg/base:2023.05
+    steps:
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: |
+            docker compose build app --no-cache
 
 workflows:
   main:
     jobs:
       - build
+      - docker:
+          requires:
+            - build

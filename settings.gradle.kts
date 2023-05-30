@@ -1,3 +1,3 @@
 rootProject.name = "game-of-life"
 
-include("core")
+include("app", "core")
